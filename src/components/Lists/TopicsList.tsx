@@ -17,15 +17,19 @@ const TopicsList = () => {
 
     const [topicType,setTopicType] = useState<TopicsNavType>(TopicsNavType.FIRST_AID);
 
-    useEffect(() => {
-        const fetchTopicsWrapper = async ()=>{
-            const type = topicType===TopicsNavType.FIRST_AID?"firstAid":"emergency"
-            const topics =  await fetchTopics(type);
-            setTopics(topics);
-            setFiltered(topics);
-        }
+    const [error,setError] = useState<string>("");
 
-        fetchTopicsWrapper().then();
+    useEffect(() => {
+
+        const type = topicType===TopicsNavType.FIRST_AID?"firstAid":"emergency"
+
+        fetchTopics(type).then(res=>{
+            /*Зазвичай пошук та фільтрація виконується на сервері - це буде реалізовано пізніше, але на даний момент =>*/
+            setTopics(res); // це статичне значення (щоб скинути фільтри + пошук)
+            setFiltered(res); // це з застосованими  фільтрами
+        }).catch((err:Error)=>{
+            setError("Data loading fail, try later");
+        });
 
     }, [topicType]);
 
@@ -36,17 +40,19 @@ const TopicsList = () => {
     function onTopicSearch(e:ChangeEvent<HTMLInputElement>){
         if(e.target.value===""){
             setFiltered(topics);
+            return;
         }
         setFiltered(topics.filter(t=>t.title.includes(e.target.value)));
     }
 
     return (
         <div className="mt-16 flex flex-col gap-3">
-            <div className="flex justify-between pr-10">
+            <div className="flex justify-between pr-10 pl-2">
                 <TopicsNavigation handleTopicChange={handleTopicsTypeChange} />
                 <TopicSearchInput onSearch={onTopicSearch} />
             </div>
             <div className="gap-2 p-5 flex items-center flex-wrap">
+                <div>{error}</div>
                 {filtered.map(t=>{
                     return <div key={t.id} style={{width:customWidth,boxShadow:shadow}}  className="cursor-pointer flex flex-col items-center rounded-md gap-2 p-2">
                         <div className="border-b-2 p-2 border-slate-200 w-full flex justify-center">
