@@ -15,15 +15,12 @@ const TopicsNavigation = ({handleTopicChange}:TopicsNavigationProps) => {
     const [topics,setTopics] = useState<TopicDisplayType[]>(initialState);
 
     function handleTopicClick(index:number){
-        setTopics(topics.map((t,i)=>{
-            if(i===index){
-                t.isActive=true;
-                handleTopicChange(t.navType);
-                return t;
-            }
-            t.isActive=false;
-            return t;
-        }));
+        const updatedTopics = [...topics];
+        updatedTopics.forEach((t, i) => {
+            t.isActive = i === index;
+        });
+        setTopics(updatedTopics);
+        handleTopicChange(topics[index].navType);
     }
 
 
