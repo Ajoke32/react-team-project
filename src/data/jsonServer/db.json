@@ -1,0 +1,54 @@
+{
+   "firstAid": [
+     {
+       "id": 1,
+       "title": "some title",
+       "description": "desc",
+       "imgLink": ""
+     },
+     {
+       "id": 2,
+       "title": "Title 2",
+       "description": "description",
+       "imgLink": ""
+     },
+     {
+       "id": 3,
+       "title": "Title 3",
+       "description": "description",
+       "imgLink": ""
+     },
+     {
+       "id": 4,
+       "title": "Title 4",
+       "description": "description",
+       "imgLink": ""
+     }
+   ],
+  "emergency": [
+    {
+      "id": 1,
+      "title": "Emergency",
+      "description": "desct",
+      "imgLink": ""
+    },
+    {
+      "id": 2,
+      "title": "Emergency 2",
+      "description": "description",
+      "imgLink": ""
+    },
+    {
+      "id": 3,
+      "title": "Emergency 3",
+      "description": "description q",
+      "imgLink": ""
+    },
+    {
+      "id": 4,
+      "title": "Emergency 4",
+      "description": "description",
+      "imgLink": ""
+    }
+  ]
+}
