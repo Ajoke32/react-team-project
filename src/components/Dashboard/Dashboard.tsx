@@ -5,6 +5,7 @@ import LastLearningSessionsList from '@/components/Lists/LastLearningSessionsLis
 import TimeTracker from '@/components/TimeTracker/TimeTracker';
 import LearningChart from '@/components/Charts/LearningChart';
 import TopicsColumnList from '@/components/Lists/TopicsColumnList';
+import Loader from '@/components/Loaders/Loader';
 
 const Dashboard = () => {
     const [learned, setLearned] = useState<LearnedTime[]>([]);
@@ -22,7 +23,7 @@ const Dashboard = () => {
     }, []);
 
     return loading ? (
-        <div>loading...</div>
+        <Loader isLoading={loading} />
     ) : (
         <div
             className="grid grid-cols-3 grid-rows-2 place-content-center gap-5 p-5"

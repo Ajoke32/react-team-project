@@ -108,11 +108,6 @@ const TopicsList = () => {
                     );
                 })}
             </div>
-            <div className="flex justify-center">
-                <button className="rounded-xl bg-blue-300 p-2 text-white">
-                    Load more
-                </button>
-            </div>
         </div>
     ) : null;
 };
