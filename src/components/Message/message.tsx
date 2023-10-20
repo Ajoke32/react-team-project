@@ -1,5 +1,5 @@
 import React from 'react';
-import Profile from "@/components/Profile/Profile";
+import Profile from '@/components/Profile/Profile';
 
 interface MessageProps {
     sender: string;
@@ -16,6 +16,5 @@ function Message({ sender, recipient, text }: MessageProps) {
         </div>
     );
 }
-
 
 export default Message;

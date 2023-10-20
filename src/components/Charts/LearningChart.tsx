@@ -1,9 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {BarElement, CategoryScale, Chart as ChartJS, ChartData, Legend, LinearScale, Title, Tooltip} from "chart.js";
-import {Bar} from "react-chartjs-2";
-import {LearnedTime} from "@/types/learnedTime";
-import {fetchLearningStats} from "@/clientApi/learn/learningStatistic";
-import moment from "moment/moment";
+import React, { useEffect, useState } from 'react';
+import {
+    BarElement,
+    CategoryScale,
+    Chart as ChartJS,
+    ChartData,
+    Legend,
+    LinearScale,
+    Title,
+    Tooltip,
+} from 'chart.js';
+import { Bar } from 'react-chartjs-2';
+import { LearnedTime } from '@/types/learnedTime';
+import { fetchLearningStats } from '@/clientApi/learn/learningStatistic';
+import moment from 'moment/moment';
 
 ChartJS.register(
     CategoryScale,
@@ -11,7 +20,7 @@ ChartJS.register(
     BarElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
 );
 const options = {
     responsive: true,
@@ -25,34 +34,35 @@ const options = {
         },
     },
 };
-const LearningChart = ({data:items}:{data:LearnedTime[]}) => {
-    const labels:string[] = [];
-    const values:number[] = [];
-    const [data,setData] =
-        useState<ChartData<"bar", (number | [number, number] | null)[], string>>({labels:[],datasets:[]});
+const LearningChart = ({ data: items }: { data: LearnedTime[] }) => {
+    const labels: string[] = [];
+    const values: number[] = [];
+    const [data, setData] = useState<
+        ChartData<'bar', (number | [number, number] | null)[], string>
+    >({ labels: [], datasets: [] });
 
     useEffect(() => {
         createLabels(items);
     }, []);
-    function createLabels(items:LearnedTime[]){
-        items.forEach(i=>{
-            labels.push(moment(i.startDate).format("DD/MM/YYYY"));
-            values.push(moment(i.endDate).diff(i.startDate,"minutes"));
+    function createLabels(items: LearnedTime[]) {
+        items.forEach((i) => {
+            labels.push(moment(i.startDate).format('DD/MM/YYYY'));
+            values.push(moment(i.endDate).diff(i.startDate, 'minutes'));
         });
         setData({
-            labels:labels,
+            labels: labels,
             datasets: [
                 {
                     label: 'last 7 days stats',
-                    data: labels.map((i,index)=>values[index]),
+                    data: labels.map((i, index) => values[index]),
                     backgroundColor: '#a2d2ff',
                 },
             ],
-        })
+        });
     }
     return (
         <div className="relative shadow-md shadow-sky-100 rounded-md p-5">
-            <Bar  data={data} options={options} />
+            <Bar data={data} options={options} />
         </div>
     );
 };

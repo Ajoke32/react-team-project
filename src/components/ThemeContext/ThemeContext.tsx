@@ -1,4 +1,12 @@
-'use client'; import { createContext, useState, ReactNode, Dispatch, SetStateAction, useEffect } from 'react';
+'use client';
+import {
+    createContext,
+    useState,
+    ReactNode,
+    Dispatch,
+    SetStateAction,
+    useEffect,
+} from 'react';
 
 export const ThemeContext = createContext({
     theme: 'light',

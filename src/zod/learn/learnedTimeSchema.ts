@@ -1,9 +1,8 @@
-import {z} from "zod";
-
+import { z } from 'zod';
 
 export const LearnedTimeSchema = z.object({
-   startDate:z.date(),
-   endDate:z.date()
+    startDate: z.date(),
+    endDate: z.date(),
 });
 
-export type LearnedTimeInfer = z.infer<typeof LearnedTimeSchema>
+export type LearnedTimeInfer = z.infer<typeof LearnedTimeSchema>;

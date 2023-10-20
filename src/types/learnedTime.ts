@@ -1,6 +1,5 @@
-import {LearnedTimeInfer} from "@/zod/learn/learnedTimeSchema";
+import { LearnedTimeInfer } from '@/zod/learn/learnedTimeSchema';
 
-
-export interface LearnedTime extends LearnedTimeInfer{
-    id:number
+export interface LearnedTime extends LearnedTimeInfer {
+    id: number;
 }
