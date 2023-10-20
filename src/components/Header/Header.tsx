@@ -30,24 +30,26 @@ const Header = ({titles}:HeaderProps) => {
                 </a>
 
                 {titles.map(t=>{
-                    return <a href={t.href}>
+                    return <a key={t.id} href={t.href}>
                         {t.title}
                     </a>
                 })}
             </div>
 
-            <div className="dropdown relative">
-                <img
-                    style={{width:"50px",height:"50px"}}
-                    src="/images/avatar.png"
-                    alt="Профіль"
-                    className="dropdown-toggle"
-                />
-                <div className="dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10">
-                    <Profile username="Юзернейм" email="email@example.com" bio="Біографія" /> {/* Використовуйте компонент Profile */}
+            <div className="flex gap-3">
+                <div className="dropdown relative">
+                    <img
+                        style={{width:"50px",height:"50px"}}
+                        src="/images/avatar.png"
+                        alt="Профіль"
+                        className="dropdown-toggle"
+                    />
+                    <div className="dropdown-menu absolute right-0 mt-2 w-48 bg-white rounded-md overflow-hidden shadow-xl z-10">
+                        <Profile username="Юзернейм" email="email@example.com" bio="Біографія" /> {/* Використовуйте компонент Profile */}
+                    </div>
                 </div>
+                <button onClick={changeTheme}>Змінити тему</button>
             </div>
-            <button onClick={changeTheme}>Змінити тему</button>
         </header>
     );
 };

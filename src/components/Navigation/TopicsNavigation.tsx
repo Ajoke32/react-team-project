@@ -1,5 +1,5 @@
 'use client'
-import React, {useState} from 'react';
+import React, {useRef, useState} from 'react';
 import {TopicDisplayType, TopicsNavType} from "@/types/topicTypes";
 
 interface TopicsNavigationProps{
@@ -13,17 +13,14 @@ const TopicsNavigation = ({handleTopicChange}:TopicsNavigationProps) => {
 
 
     const [topics,setTopics] = useState<TopicDisplayType[]>(initialState);
-
+    const prevTopic = useRef<number>(0);
     function handleTopicClick(index:number){
-        setTopics(topics.map((t,i)=>{
-            if(i===index){
-                t.isActive=true;
-                handleTopicChange(t.navType);
-                return t;
-            }
-            t.isActive=false;
-            return t;
-        }));
+        const current = prevTopic.current;
+        topics[index].isActive=true;
+        topics[current].isActive= false;
+        setTopics([...topics]);
+        handleTopicChange(topics[index].navType);
+        prevTopic.current=index;
     }
 
 
@@ -32,7 +29,7 @@ const TopicsNavigation = ({handleTopicChange}:TopicsNavigationProps) => {
         <div className="inline-flex flex-col  pl-5">
             <div className="flex items-center gap-3">
                 {topics.map((t,index)=>{
-                    return <span onClick={()=>handleTopicClick(index)}
+                    return <span  onClick={()=>handleTopicClick(index)}
                                  className={`cursor-pointer p-1 ${t.isActive?"text-sky-400":""}`} key={t.id}>{t.title}</span>
                 })}
             </div>

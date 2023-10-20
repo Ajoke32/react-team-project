@@ -5,11 +5,14 @@ import axios from "axios";
 import TopicsNavigation from "@/components/Navigation/TopicsNavigation";
 import TopicSearchInput from "@/components/SearchBars/TopicSearchInput";
 import {fetchTopics} from "@/clientApi/topics/fetchTopics";
+import Loader from "@/components/Loaders/Loader";
+import ErrorGif from "@/components/Errors/ErrorGif";
 
 const customWidth = "calc(25% - 8px)";
 const shadow = "rgba(149, 157, 165, 0.2) 0 8px 24px";
 const TopicsList = () => {
 
+    const [isLoading,setLoading] = useState<boolean>(true);
 
     const [topics,setTopics] = useState<TopicType[]>([]);
 
@@ -24,11 +27,12 @@ const TopicsList = () => {
         const type = topicType===TopicsNavType.FIRST_AID?"firstAid":"emergency"
 
         fetchTopics(type).then(res=>{
-            /*Зазвичай пошук та фільтрація виконується на сервері - це буде реалізовано пізніше, але на даний момент =>*/
-            setTopics(res); // це статичне значення (щоб скинути фільтри + пошук)
-            setFiltered(res); // це з застосованими  фільтрами
+            setTopics(res)
+            setFiltered(res);
+            setLoading(false);
         }).catch((err:Error)=>{
             setError("Data loading fail, try later");
+            setLoading(false);
         });
 
     }, [topicType]);
@@ -45,7 +49,18 @@ const TopicsList = () => {
         setFiltered(topics.filter(t=>t.title.includes(e.target.value)));
     }
 
-    return (
+    if(error!==""){
+        return  (<ErrorGif error={error}/>);
+    }
+
+    if(isLoading){
+        return  (
+            <Loader isLoading={isLoading} />
+        );
+    }
+
+
+    return topics.length!==0?(
         <div className="mt-16 flex flex-col gap-3">
             <div className="flex justify-between pr-10 pl-2">
                 <TopicsNavigation handleTopicChange={handleTopicsTypeChange} />
@@ -67,8 +82,11 @@ const TopicsList = () => {
                     </div>
                 })}
             </div>
+            <div className="flex justify-center">
+                <button className="rounded-xl bg-blue-300 p-2 text-white">Load more</button>
+            </div>
         </div>
-    );
+    ):null;
 };
 
 export default TopicsList;

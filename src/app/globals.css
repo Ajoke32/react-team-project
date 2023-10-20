@@ -15,7 +15,15 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+*::-webkit-scrollbar {
+  width: 5px;
+}
 
+
+*::-webkit-scrollbar-thumb {
+  background-color:#ced4da;
+  border-radius: 8px;
+}
 body {
   background: linear-gradient(
       to bottom,
