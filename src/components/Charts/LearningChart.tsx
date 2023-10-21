@@ -53,7 +53,7 @@ const LearningChart = ({ data: items }: { data: LearnedTime[] }) => {
             labels: labels,
             datasets: [
                 {
-                    label: 'last 7 days stats',
+                    label: 'statistic',
                     data: labels.map((i, index) => values[index]),
                     backgroundColor: '#a2d2ff',
                 },

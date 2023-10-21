@@ -6,24 +6,19 @@ import TimeTracker from '@/components/TimeTracker/TimeTracker';
 import LearningChart from '@/components/Charts/LearningChart';
 import TopicsColumnList from '@/components/Lists/TopicsColumnList';
 import Loader from '@/components/Loaders/Loader';
+import { useFetchStatus } from '@/hooks';
 
 const Dashboard = () => {
     const [learned, setLearned] = useState<LearnedTime[]>([]);
-    const [loading, setLoading] = useState<boolean>(true);
-    useEffect(() => {
-        fetchLearningStats()
-            .then((res) => {
-                setLearned(res);
-                setLoading(false);
-            })
-            .catch((err) => {
-                setLoading(false);
-                console.log(err);
-            });
-    }, []);
 
-    return loading ? (
-        <Loader isLoading={loading} />
+    const {isLoading,error} = useFetchStatus<LearnedTime>({
+       defaultPromise:fetchLearningStats,
+        setter:setLearned,
+       dependencies:[],
+    });
+
+    return isLoading ? (
+        <Loader isLoading={isLoading} />
     ) : (
         <div
             className="grid grid-cols-3 grid-rows-2 place-content-center gap-5 p-5"
@@ -36,7 +31,7 @@ const Dashboard = () => {
             <div className="flex flex-col justify-center items-center gap-5 shadow-md shadow-sky-100 rounded-md p-5">
                 <span>You are logged in as USERNAME</span>
                 <div>
-                    You can edit you account{' '}
+                    You can edit you account
                     <a
                         className="border-b-2 border-sky-300 text-sky-400"
                         href="/account/"
