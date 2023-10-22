@@ -1,8 +1,5 @@
-
-
-
-interface FetchStatusType<T>{
-  isLoading:boolean,
-  error:string|null
-  data:T[]
+interface FetchStatusType<T> {
+    isLoading: boolean;
+    error: string | null;
+    data: T[];
 }

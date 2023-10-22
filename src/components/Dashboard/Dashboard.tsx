@@ -9,10 +9,13 @@ import Loader from '@/components/Loaders/Loader';
 import { useFetchStatus } from '@/hooks';
 
 const Dashboard = () => {
-
-    const {isLoading,error,data:learned} = useFetchStatus<LearnedTime>({
-       defaultPromise:fetchLearningStats,
-       dependencies:[],
+    const {
+        isLoading,
+        error,
+        data: learned,
+    } = useFetchStatus<LearnedTime>({
+        defaultPromise: fetchLearningStats,
+        dependencies: [],
     });
 
     return isLoading ? (

@@ -8,7 +8,11 @@ interface ConditionalRenderingProps {
     children: ReactNode;
 }
 
-const ConditionalRendering = ({ loading, error, children }: ConditionalRenderingProps) => {
+const ConditionalRendering = ({
+    loading,
+    error,
+    children,
+}: ConditionalRenderingProps) => {
     if (error !== null) {
         return <ErrorGif error={error} />;
     }
@@ -17,10 +21,7 @@ const ConditionalRendering = ({ loading, error, children }: ConditionalRendering
         return <Loader isLoading={loading} />;
     }
 
-    return (
-        children
-    );
+    return children;
 };
 
 export default ConditionalRendering;
-
