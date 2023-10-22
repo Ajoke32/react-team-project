@@ -1,16 +1,13 @@
 'use client';
-import { useEffect, useState } from 'react';
 import { TopicsNavType, TopicType } from '@/types/topicTypes';
 import { fetchTopics } from '@/clientApi/topics/fetchTopics';
 import { useFetchStatus } from '@/hooks';
 import ConditionalRendering from '@/components/HOCs/ConditionalRendering';
 
 const TopicsColumnList = () => {
-    const [topics, setTopics] = useState<TopicType[]>([]);
 
-    const {isLoading,error} = useFetchStatus<TopicType,string>({
+    const {isLoading,error,data:topics} = useFetchStatus<TopicType,string>({
         argsPromise:fetchTopics,
-        setter:setTopics,
         getArgs:()=>"firstAid",
         dependencies:[]
     })

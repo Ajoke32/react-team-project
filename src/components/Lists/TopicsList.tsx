@@ -14,18 +14,15 @@ const customWidth = 'calc(25% - 8px)';
 const shadow = 'rgba(149, 157, 165, 0.2) 0 8px 24px';
 const TopicsList = () => {
 
-    const [topics, setTopics] = useState<TopicType[]>([]);
-
     const [filtered, setFiltered] = useState<TopicType[]>([]);
 
     const [topicType, setTopicType] = useState<TopicsNavType>(
         TopicsNavType.FIRST_AID,
     );
 
-    const {isLoading,error} = useFetchStatus<TopicType,string>({
+    const {isLoading,error,data:topics} = useFetchStatus<TopicType,string>({
         argsPromise:fetchTopics,
         onSuccess:(res)=>{
-            setTopics(res);
             setFiltered(res);
         },
         getArgs:()=>topicType===TopicsNavType.FIRST_AID?"firstAid":"emergency",
