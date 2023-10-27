@@ -1,8 +1,19 @@
-import React from 'react';
-import Header from '@/components/Header/Header';
+'use client';
+import React, { useContext, useState } from 'react';
 import TopicsList from '@/components/Lists/TopicsList';
-import RootLayout from '@/app/layout';
+import NotificationModal from '@/components/NotificationModal/NotificationModal';
+import {
+    NotificationContext,
+    NotificationContextWrapper,
+} from '@/components/NotificationsContext/NotificationContext';
 
 export default function Home() {
-    return <TopicsList />;
+    return (
+        <>
+            <NotificationContextWrapper>
+                <TopicsList />
+                <NotificationModal />
+            </NotificationContextWrapper>
+        </>
+    );
 }

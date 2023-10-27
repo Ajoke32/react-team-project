@@ -1,18 +1,20 @@
 'use client';
-import React, { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useContext, useState } from 'react';
 import { TopicsNavType, TopicType } from '@/types/topicTypes';
-import axios from 'axios';
 import TopicsNavigation from '@/components/Navigation/TopicsNavigation';
 import TopicSearchInput from '@/components/SearchBars/TopicSearchInput';
 import { fetchTopics } from '@/clientApi/topics/fetchTopics';
-import Loader from '@/components/Loaders/Loader';
-import ErrorGif from '@/components/Errors/ErrorGif';
-import { useFetchStatus } from '@/hooks';
+import { useFetchStatus, useNotificationModal } from '@/hooks';
 import ConditionalRendering from '@/components/HOCs/ConditionalRendering';
 
 const customWidth = 'calc(25% - 8px)';
 const shadow = 'rgba(149, 157, 165, 0.2) 0 8px 24px';
 const TopicsList = () => {
+    const { onError, onSuccess } = useNotificationModal(
+        'data loading fail',
+        'data loading success',
+    );
+
     const [filtered, setFiltered] = useState<TopicType[]>([]);
 
     const [topicType, setTopicType] = useState<TopicsNavType>(
@@ -27,6 +29,10 @@ const TopicsList = () => {
         argsPromise: fetchTopics,
         onSuccess: (res) => {
             setFiltered(res);
+            onSuccess();
+        },
+        onError: () => {
+            onError();
         },
         getArgs: () =>
             topicType === TopicsNavType.FIRST_AID ? 'firstAid' : 'emergency',
