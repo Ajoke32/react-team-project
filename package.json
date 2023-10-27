@@ -3,7 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "scripts": {
-        "dev": "next dev",
+        "dev": "npm-run-all --parallel start:next start:json-server",
+        "start:json-server": "json-server --watch src/data/jsonServer/db.json --port 5000",
+        "start:next": "next dev",
         "build": "next build",
         "start": "next start",
         "lint": "next lint"
@@ -15,6 +17,7 @@
         "json-server": "^0.17.3",
         "moment": "^2.29.4",
         "next": "13.4.19",
+        "npm-run-all": "^4.1.5",
         "postcss": "8.4.29",
         "react": "18.2.0",
         "react-chartjs-2": "^5.2.0",
