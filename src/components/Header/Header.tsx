@@ -4,6 +4,7 @@ import { HeaderTitle } from '@/types/headerTypes';
 import Profile from '@/components/Profile/Profile';
 import { ThemeContext } from '@/components/ThemeContext/ThemeContext';
 import '@/app/Header.css';
+import TextChanger from '@/components/Accesability/TextChanger';
 
 interface HeaderProps {
     titles: HeaderTitle[];
@@ -40,6 +41,7 @@ const Header = ({ titles }: HeaderProps) => {
             </div>
 
             <div className="flex gap-3">
+                <TextChanger />
                 <div className="dropdown relative">
                     <img
                         style={{ width: '50px', height: '50px' }}

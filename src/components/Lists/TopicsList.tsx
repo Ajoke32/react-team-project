@@ -4,8 +4,9 @@ import { TopicsNavType, TopicType } from '@/types/topicTypes';
 import TopicsNavigation from '@/components/Navigation/TopicsNavigation';
 import TopicSearchInput from '@/components/SearchBars/TopicSearchInput';
 import { fetchTopics } from '@/clientApi/topics/fetchTopics';
-import { useFetchStatus, useNotificationModal } from '@/hooks';
 import ConditionalRendering from '@/components/HOCs/ConditionalRendering';
+import { useFetchStatus } from '@/hooks/useFetchStatus';
+import { useNotificationModal } from '@/hooks/useNotificationModal';
 
 const customWidth = 'calc(25% - 8px)';
 const shadow = 'rgba(149, 157, 165, 0.2) 0 8px 24px';

@@ -1,12 +1,12 @@
 import { createPortal } from 'react-dom';
-import { CSSProperties, useContext, useEffect, useRef } from 'react';
+import { CSSProperties, useContext, useEffect, useRef, useState } from 'react';
 import { NotificationContext } from '@/components/NotificationsContext/NotificationContext';
 import { NotificationMessage } from '@/enums';
 
 const MODAL: CSSProperties = {
     position: 'absolute',
     right: '50px',
-    top: '50px',
+    top: '80px',
     zIndex: 1000,
     borderTopLeftRadius: '8px',
     borderBottomLeftRadius: '8px',
@@ -16,24 +16,36 @@ const MODAL: CSSProperties = {
 };
 const appear = [{ transform: 'scale(0)' }, { transform: 'scale(1)' }];
 
+const timeout = 2000;
+
 const timing = {
     duration: 200,
 };
-const NotificationModal = () => {
-    const { isModalOpen, setIsModalOpen, message } =
-        useContext(NotificationContext);
-    const { type } = useContext(NotificationContext);
 
-    if (!isModalOpen) return null;
+const NotificationModal = () => {
+    const { setIsModalOpen, message, type } = useContext(NotificationContext);
+
     const modalRef = useRef<HTMLDivElement>(null);
+
     useEffect(() => {
         const tm = setTimeout(() => {
+            modalRef.current!.animate(
+                [{ transform: 'scale(1)' }, { transform: 'scale(0)' }],
+                { duration: 200 },
+            );
+        }, timeout);
+
+        const tmS = setTimeout(() => {
             setIsModalOpen(false);
             modalRef.current!.style.display = 'none';
-        }, 2000);
+        }, timeout + timing.duration);
 
-        return () => clearTimeout(tm);
+        return () => {
+            clearTimeout(tm);
+            clearTimeout(tmS);
+        };
     }, []);
+
     useEffect(() => {
         if (modalRef.current !== null) {
             modalRef.current.style.display = 'flex';
@@ -70,7 +82,7 @@ const NotificationModal = () => {
                 }}
             ></div>
         </div>,
-        document.getElementById('portal')!,
+        document.body,
     );
 };
 

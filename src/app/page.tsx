@@ -8,12 +8,11 @@ import {
 } from '@/components/NotificationsContext/NotificationContext';
 
 export default function Home() {
+    const { isModalOpen } = useContext(NotificationContext);
     return (
         <>
-            <NotificationContextWrapper>
-                <TopicsList />
-                <NotificationModal />
-            </NotificationContextWrapper>
+            <TopicsList />
+            {isModalOpen ? <NotificationModal /> : ''}
         </>
     );
 }
