@@ -1,4 +1,5 @@
-'use client'; import { createContext, useState, ReactNode, Dispatch, SetStateAction, useEffect } from 'react';
+'use client';
+import { createContext, useState, ReactNode, Dispatch, SetStateAction, useEffect } from 'react';
 
 export const ThemeContext = createContext({
     theme: 'light',
@@ -10,12 +11,12 @@ interface ThemeProviderProps {
 }
 
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
-    const [theme, setTheme] = useState('light');
+    const initialTheme = localStorage.getItem('theme') || 'light';
+    const [theme, setTheme] = useState(initialTheme);
 
     useEffect(() => {
-        // Цей код тепер виконуватиметься тільки на клієнті
-        setTheme('light');
-    }, []);
+        localStorage.setItem('theme', theme);
+    }, [theme]);
 
     return (
         <ThemeContext.Provider value={{ theme, setTheme }}>
