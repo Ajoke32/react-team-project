@@ -1,5 +1,5 @@
 'use client';
-import React, { useContext }  from 'react';
+import React, { useContext, useState, useEffect, useRef }  from 'react';
 import {HeaderTitle} from "@/types/headerTypes";
 import Profile from "@/components/Profile/Profile";
 import {ThemeContext} from "@/components/ThemeContext/ThemeContext";
@@ -29,10 +29,52 @@ const Header = ({ titles }: HeaderProps) => {
         setTheme(themes[nextIndex]);
     };
 
-    return (
-        <header className={`p-2 flex gap-5 items-center justify-between ${theme}`}>
+    const useFetchData = (username: string) => {
+        const [data, setData] = useState(null);
+        const [loading, setLoading] = useState(true);
 
-            <div className="flex gap-5 items-center">
+        useEffect(() => {
+            fetch(`/api/topics/${username}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    if (data) {
+                        return JSON.parse(data);
+                    } else {
+                        throw new Error('No data received');
+                    }
+                })
+                .then(data => {
+                    setData(data);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }, [username]);
+
+        return { data, loading };
+    };
+
+    // Використання кастомного хука
+    const { data, loading } = useFetchData('Admin');
+    const themeRef =  useRef<HTMLElement>(null);
+
+    useEffect(() => {
+        if (themeRef.current) {
+            themeRef.current.className = `p-2 flex gap-5 items-center justify-between ${theme}`;
+        }
+    }, [theme]);
+
+    return (
+        <header ref={themeRef} className={`p-2 flex gap-5 items-center justify-between ${theme}`}>
+
+
+        <div className="flex gap-5 items-center">
                 <a href="/" className="flex items-center gap-2">
                     <img style={{ width: "50px", height: "50px" }} src="/images/logo.png" alt="" />
                 </a>
