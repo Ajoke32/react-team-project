@@ -1,7 +1,5 @@
-
-
 export type HeaderTitle = {
-    href:string,
-    title:string
-}
-
+    id: number;
+    href: string;
+    title: string;
+};

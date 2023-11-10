@@ -1,54 +1,83 @@
 {
-   "firstAid": [
-     {
-       "id": 1,
-       "title": "some title",
-       "description": "desc",
-       "imgLink": ""
-     },
-     {
-       "id": 2,
-       "title": "Title 2",
-       "description": "description",
-       "imgLink": ""
-     },
-     {
-       "id": 3,
-       "title": "Title 3",
-       "description": "description",
-       "imgLink": ""
-     },
-     {
-       "id": 4,
-       "title": "Title 4",
-       "description": "description",
-       "imgLink": ""
-     }
-   ],
-  "emergency": [
-    {
-      "id": 1,
-      "title": "Emergency",
-      "description": "desct",
-      "imgLink": ""
-    },
-    {
-      "id": 2,
-      "title": "Emergency 2",
-      "description": "description",
-      "imgLink": ""
-    },
-    {
-      "id": 3,
-      "title": "Emergency 3",
-      "description": "description q",
-      "imgLink": ""
-    },
-    {
-      "id": 4,
-      "title": "Emergency 4",
-      "description": "description",
-      "imgLink": ""
-    }
-  ]
+    "firstAid": [
+        {
+            "id": 1,
+            "title": "some title",
+            "description": "desc",
+            "imgLink": ""
+        },
+        {
+            "id": 2,
+            "title": "Title 2",
+            "description": "description",
+            "imgLink": ""
+        },
+        {
+            "id": 3,
+            "title": "Title 3",
+            "description": "description",
+            "imgLink": ""
+        },
+        {
+            "id": 4,
+            "title": "Title 4",
+            "description": "description",
+            "imgLink": ""
+        }
+    ],
+    "emergency": [
+        {
+            "id": 1,
+            "title": "Emergency",
+            "description": "desct",
+            "imgLink": ""
+        },
+        {
+            "id": 2,
+            "title": "Emergency 2",
+            "description": "description",
+            "imgLink": ""
+        },
+        {
+            "id": 3,
+            "title": "Emergency 3",
+            "description": "description q",
+            "imgLink": ""
+        },
+        {
+            "id": 4,
+            "title": "Emergency 4",
+            "description": "description",
+            "imgLink": ""
+        }
+    ],
+    "users": [
+        {
+            "firstName": "Mike",
+            "role": "Admin",
+            "email": "mike@gmail.com"
+        }
+    ],
+    "learned": [
+        {
+            "id": 1,
+            "startDate": "2023-10-20T15:00:00",
+            "endDate": "2023-10-20T15:30:00"
+        },
+        {
+            "id": 2,
+            "startDate": "2023-10-18T16:00:00",
+            "endDate": "2023-10-18T17:30:00"
+        },
+        {
+            "id": 3,
+            "startDate": "2023-10-17T12:00:00",
+            "endDate": "2023-10-17T13:40:00"
+        },
+        {
+            "id": 4,
+            "startDate": "2023-10-19T12:00:00",
+            "endDate": "2023-10-19T12:40:00"
+        }
+    ]
 }
