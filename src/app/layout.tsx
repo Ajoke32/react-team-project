@@ -5,6 +5,8 @@ import React, { ReactNode } from 'react';
 import Header from '@/components/Header/Header';
 import NotificationModal from '@/components/NotificationModal/NotificationModal';
 import { NotificationContextWrapper } from '@/components/NotificationsContext/NotificationContext';
+import { Provider } from 'react-redux';
+import { store } from '@/store/store';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -12,6 +14,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     return (
         <html lang="en">
             <body className={inter.className}>
+            <Provider store={store}>
                 <NotificationContextWrapper>
                     <Header
                         titles={[
@@ -22,6 +25,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     />
                     {children}
                 </NotificationContextWrapper>
+            </Provider>
             </body>
         </html>
     );

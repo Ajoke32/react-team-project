@@ -11,6 +11,7 @@ export async function GET(
             `http://localhost:5000/${params.type}`,
         );
         return NextResponse.json(axiosResponse.data);
+
     } catch (error) {
         console.error(error);
         throw new Error('fail to fetch topics');
