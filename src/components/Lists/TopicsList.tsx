@@ -9,109 +9,75 @@ import { useNotificationModal } from '@/hooks/useNotificationModal';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import { useAppDispatch } from '@/hooks/useAppDispatch';
 import { fetchTopics } from '@/store/asyncThunks/fetchTopics';
+import { loadingStatus } from '@/types/fetchStatus';
 
 const customWidth = 'calc(25% - 8px)';
 const shadow = 'rgba(149, 157, 165, 0.2) 0 8px 24px';
-const TopicsList = () => {
 
-    const dispatch = useAppDispatch();
+interface TopicsListProps {
+    loading: loadingStatus,
+    error: undefined | string,
+    data: TopicType[]
+}
 
-    const { topics,loading,error } = useTypedSelector(s=>s.topicReducer);
+const TopicsList = ({ loading, data, error }: TopicsListProps) => {
 
-    const [filtered, setFiltered] = useState<TopicType[]>([]);
-
-    const [topicType, setTopicType] = useState<TopicsNavType>(
-        TopicsNavType.FIRST_AID,
-    );
-
-    useEffect(() => {
-        const type:string = topicType === TopicsNavType.FIRST_AID ? 'firstAid' : 'emergency';
-        dispatch(fetchTopics(type));
-    }, [topicType]);
-
-    useEffect(() => {
-        if(loading==='succeeded'){
-            setFiltered(topics);
-        }
-    }, [loading]);
-
-    function handleTopicsTypeChange(value: TopicsNavType) {
-        setTopicType(value);
-    }
-
-    function onTopicSearch(e: ChangeEvent<HTMLInputElement>) {
-        if (e.target.value === '') {
-            setFiltered(topics);
-            return;
-        }
-        setFiltered(topics.filter((t) => t.title.includes(e.target.value)));
-    }
 
     return (
-        <>
-            <div className="mt-16 flex flex-col gap-3">
-                <div className="flex justify-between pr-10 pl-2">
-                    <TopicsNavigation
-                        handleTopicChange={handleTopicsTypeChange}
-                    />
-                    <TopicSearchInput onSearch={onTopicSearch} />
-                </div>
-                <ConditionalRendering loading={loading} error={error}>
-                    <div className="gap-2 p-5 flex items-center flex-wrap">
-                        <div>{error}</div>
-                        {filtered.map((t) => {
-                            return (
-                                <div
-                                    key={t.id}
+        <ConditionalRendering loading={loading} error={error}>
+            <div className='gap-2 p-5 flex items-center flex-wrap'>
+                <div>{error}</div>
+                {data.map((t) => {
+                    return (
+                        <div
+                            key={t.id}
+                            style={{
+                                width: customWidth,
+                                boxShadow: shadow
+                            }}
+                            className='cursor-pointer flex flex-col items-center rounded-md gap-2 p-2'
+                        >
+                            <div className='border-b-2 p-2 border-slate-200 w-full flex justify-center'>
+                                <img
+                                    className='mb-2'
                                     style={{
-                                        width: customWidth,
-                                        boxShadow: shadow,
+                                        height: '150px',
+                                        width: '150px'
                                     }}
-                                    className="cursor-pointer flex flex-col items-center rounded-md gap-2 p-2"
-                                >
-                                    <div className="border-b-2 p-2 border-slate-200 w-full flex justify-center">
-                                        <img
-                                            className="mb-2"
-                                            style={{
-                                                height: '150px',
-                                                width: '150px',
-                                            }}
-                                            src={`${
-                                                t.imgLink === ''
-                                                    ? '/images/logo.png'
-                                                    : t.imgLink
-                                            }`}
-                                            alt=""
-                                        />
-                                    </div>
-                                    <span className="text-2xl">{t.title}</span>
-                                    <span className="text-sm text-center text-slate-400">
+                                    src={`${
+                                        t.imgLink === ''
+                                            ? '/images/logo.png'
+                                            : t.imgLink
+                                    }`}
+                                    alt=''
+                                />
+                            </div>
+                            <span className='text-2xl'>{t.title}</span>
+                            <span className='text-sm text-center text-slate-400'>
                                     {t.description}
                                 </span>
-                                    <div className="w-full px-1 py-1 flex justify-between gap-3 items-center">
-                                        <button
-                                            style={{ color: 'white' }}
-                                            className="p-1 grow bg-blue-400 rounded-xl hover:bg-blue-500"
-                                        >
-                                            Learn now
-                                        </button>
-                                        <img
-                                            className="p-1 hover:bg-purple-300 rounded-md"
-                                            style={{
-                                                width: '30px',
-                                                height: '30px',
-                                            }}
-                                            src="/images/bookmark.png"
-                                            alt=""
-                                        />
-                                    </div>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </ConditionalRendering>
+                            <div className='w-full px-1 py-1 flex justify-between gap-3 items-center'>
+                                <button
+                                    style={{ color: 'white' }}
+                                    className='p-1 grow bg-blue-400 rounded-xl hover:bg-blue-500'
+                                >
+                                    Learn now
+                                </button>
+                                <img
+                                    className='p-1 hover:bg-purple-300 rounded-md'
+                                    style={{
+                                        width: '30px',
+                                        height: '30px'
+                                    }}
+                                    src='/images/bookmark.png'
+                                    alt=''
+                                />
+                            </div>
+                        </div>
+                    );
+                })}
             </div>
-        </>
+        </ConditionalRendering>
     );
 };
 
