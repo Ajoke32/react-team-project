@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { FetchStatusType } from '@/types/fetchStatus';
 
 interface useFetchParams<T, TArgs = undefined> {
     argsPromise?: (args: TArgs) => Promise<T[]>;

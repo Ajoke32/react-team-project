@@ -1,15 +1,13 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
 import { TopicType } from '@/types/topicTypes';
+import {
+    createParamsDefaultFetchAsyncThunk
+} from '@/store/asyncThunks/defaultFetchThunk';
 
-export const fetchTopics = createAsyncThunk(
-    'topic/fetchTopics',
-    async  (topicType:string,{rejectWithValue})=>{
-        try {
-            const response = await axios.get<TopicType[]>(`/api/topics/${topicType}`);
-            return response.data;
-        }catch (e:any){
-            return rejectWithValue(e.message);
-        }
-    }
-)
+
+
+export const fetchTopics = createParamsDefaultFetchAsyncThunk<TopicType[],string>('/api/topics/')
+
+
+
+
+

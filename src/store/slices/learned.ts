@@ -2,17 +2,19 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { LearnedTime } from '@/types/learnedTime';
 import { loadingStatus } from '@/types/fetchStatus';
 import { fetchLearned } from '@/store/asyncThunks/fetchLearned';
+import { setupDefaultCases } from '@/store/slices/defaultFetchReducerCase';
+import { TopicType } from '@/types/topicTypes';
+import { fetchTopics } from '@/store/asyncThunks/fetchTopics';
+import { DataFetchState } from '@/types/defaultDataFetchState';
 
 
 
-interface LearnedState{
-    learned:LearnedTime[],
-    loading:loadingStatus,
-    error:string|undefined
+interface LearnedState extends DataFetchState<LearnedTime>{
+
 }
 
 const initialState:LearnedState={
-    learned:[],
+    data:[],
     loading:'idle',
     error:undefined
 }
@@ -21,17 +23,12 @@ export const learnedSlice = createSlice({
     initialState,
     reducers:{},
     extraReducers:(builder)=>{
-        builder.addCase(fetchLearned.pending,(state, action)=>{
-            state.loading = 'pending'
+        setupDefaultCases<LearnedTime,LearnedState>({
+            builder:builder,
+            pending:fetchLearned.pending,
+            rejected:fetchLearned.rejected,
+            fulfilled:fetchLearned.fulfilled
         });
-        builder.addCase(fetchLearned.fulfilled,(state, action:PayloadAction<LearnedTime[]>)=>{
-            state.learned=action.payload;
-            state.loading = 'succeeded';
-        });
-        builder.addCase(fetchLearned.rejected,(state, action)=>{
-            state.loading='failed';
-            state.error=action.error.message;
-        })
     }
 })
 

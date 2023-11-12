@@ -4,7 +4,7 @@ import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 const TopicsColumnList = () => {
 
-    const {topics,loading:isLoading,error} = useTypedSelector(s=>s.topicReducer);
+    const {data:topics,loading:isLoading,error} = useTypedSelector(s=>s.topicReducer);
 
     return (
         <ConditionalRendering loading={isLoading} error={error}>

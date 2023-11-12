@@ -10,7 +10,7 @@ import { fetchLearned } from '@/store/asyncThunks/fetchLearned';
 
 
 const Dashboard = () => {
-    const {learned,loading:isLoading} = useTypedSelector(s=>s.learnedReducer);
+    const {data:learned,loading:isLoading} = useTypedSelector(s=>s.learnedReducer);
     const dispatch = useAppDispatch();
 
     useEffect(() => {

@@ -16,7 +16,7 @@ const TopicsList = () => {
 
     const dispatch = useAppDispatch();
 
-    const { topics,loading,error } = useTypedSelector(s=>s.topicReducer);
+    const { data:topics,loading,error } = useTypedSelector(s=>s.topicReducer);
 
     const [filtered, setFiltered] = useState<TopicType[]>([]);
 

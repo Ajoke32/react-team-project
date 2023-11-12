@@ -1,4 +1,4 @@
-interface FetchStatusType<T> {
+export interface FetchStatusType<T> {
     isLoading: boolean;
     error: string | null;
     data: T[];
