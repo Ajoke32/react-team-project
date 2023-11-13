@@ -10,7 +10,6 @@ const customWidth = "calc(25% - 8px)";
 const shadow = "rgba(149, 157, 165, 0.2) 0 8px 24px";
 const TopicsList = () => {
 
-
     const [topics,setTopics] = useState<TopicType[]>([]);
 
     const [filtered,setFiltered] = useState<TopicType[]>([]);
