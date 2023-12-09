@@ -1,7 +1,7 @@
 'use client';
 import { TopicsNavType, TopicType } from '@/types/topicTypes';
 import { fetchTopics } from '@/clientApi/topics/fetchTopics';
-import { useFetchStatus } from '@/hooks';
+import { useFetchStatus } from '@/hooks/useFetchStatus';
 import ConditionalRendering from '@/components/HOCs/ConditionalRendering';
 
 const TopicsColumnList = () => {

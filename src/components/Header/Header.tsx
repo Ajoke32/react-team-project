@@ -5,12 +5,19 @@ import Profile from '@/components/Profile/Profile';
 import { ThemeContext } from '@/components/ThemeContext/ThemeContext';
 import '@/app/Header.css';
 import TextChanger from '@/components/Accesability/TextChanger';
-
+import { ThemeProvider } from '@/components/ThemeContext/ThemeContext';
+import ContrastChange from '@/components/Contrast/ColorContrastChecker';
+import ColorContrastChecker from '@/components/Contrast/ColorContrastChecker';
 interface HeaderProps {
     titles: HeaderTitle[];
+    onContrastChange: (contrastValue: string) => void;
+    contrast: string;
+    handleContrastChange: (contrastValue: string) => void;
+
+    contrastOptions: string[];
 }
 
-const Header = ({ titles }: HeaderProps) => {
+const Header: React.FC<HeaderProps> = ({ titles, onContrastChange, contrast, handleContrastChange, contrastOptions  }: HeaderProps) => {
     const { theme, setTheme } = useContext(ThemeContext);
     const themes = ['light', 'dark', 'blue'];
 
@@ -55,8 +62,17 @@ const Header = ({ titles }: HeaderProps) => {
                             email="email@example.com"
                             bio="Біографія"
                         />{' '}
-                        {/* Використовуйте компонент Profile */}
                     </div>
+                </div>
+                <div className="flex gap-3">
+                    <label htmlFor="contrastSelect">Зміна контрастності</label>
+                    <ColorContrastChecker
+                        foregroundColor={'#000000'}
+                        backgroundColor={'#FFFFFF'}
+                        contrast={'low'}
+                        onContrastChange={onContrastChange}
+                        contrastOptions={["low", "medium", "high"]}
+                    />
                 </div>
                 <button onClick={changeTheme}>Змінити тему</button>
             </div>
