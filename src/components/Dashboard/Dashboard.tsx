@@ -1,3 +1,4 @@
+'use client'
 import { useEffect, useState, lazy, Suspense } from 'react';
 import { fetchLearningStats } from '@/clientApi/learn/learningStatistic';
 import { LearnedTime } from '@/types/learnedTime';
@@ -6,7 +7,7 @@ import TimeTracker from '@/components/TimeTracker/TimeTracker';
 import LearningChart from '@/components/Charts/LearningChart';
 import TopicsColumnList from '@/components/Lists/TopicsColumnList';
 import Loader from '@/components/Loaders/Loader';
-import { useFetchStatus } from '@/hooks';
+import { useFetchStatus } from '@/hooks/useFetchStatus';
 
 const Dashboard = () => {
     const {
