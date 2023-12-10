@@ -1,24 +1,24 @@
-import { useEffect, useState, lazy, Suspense } from 'react';
-import { fetchLearningStats } from '@/clientApi/learn/learningStatistic';
-import { LearnedTime } from '@/types/learnedTime';
 import LastLearningSessionsList from '@/components/Lists/LastLearningSessionsList';
 import TimeTracker from '@/components/TimeTracker/TimeTracker';
 import LearningChart from '@/components/Charts/LearningChart';
 import TopicsColumnList from '@/components/Lists/TopicsColumnList';
 import Loader from '@/components/Loaders/Loader';
-import { useFetchStatus } from '@/hooks';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useAppDispatch } from '@/hooks/useAppDispatch';
+import { useEffect } from 'react';
+import { fetchLearned } from '@/store/asyncThunks/fetchLearned';
+
 
 const Dashboard = () => {
-    const {
-        isLoading,
-        error,
-        data: learned,
-    } = useFetchStatus<LearnedTime>({
-        defaultPromise: fetchLearningStats,
-        dependencies: [],
-    });
+    const {learned,loading:isLoading} = useTypedSelector(s=>s.learnedReducer);
+    const dispatch = useAppDispatch();
 
-    return isLoading ? (
+    useEffect(() => {
+        dispatch(fetchLearned());
+    }, []);
+
+
+    return isLoading==='pending' ? (
         <Loader isLoading={isLoading} />
     ) : (
         <div
