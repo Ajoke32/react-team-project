@@ -3,3 +3,5 @@ interface FetchStatusType<T> {
     error: string | null;
     data: T[];
 }
+
+export  type loadingStatus = 'idle' | 'pending' | 'succeeded' | 'failed';

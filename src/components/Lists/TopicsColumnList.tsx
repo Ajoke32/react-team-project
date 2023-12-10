@@ -1,19 +1,10 @@
 'use client';
-import { TopicsNavType, TopicType } from '@/types/topicTypes';
-import { fetchTopics } from '@/clientApi/topics/fetchTopics';
-import { useFetchStatus } from '@/hooks';
 import ConditionalRendering from '@/components/HOCs/ConditionalRendering';
+import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 const TopicsColumnList = () => {
-    const {
-        isLoading,
-        error,
-        data: topics,
-    } = useFetchStatus<TopicType, string>({
-        argsPromise: fetchTopics,
-        getArgs: () => 'firstAid',
-        dependencies: [],
-    });
+
+    const {topics,loading:isLoading,error} = useTypedSelector(s=>s.topicReducer);
 
     return (
         <ConditionalRendering loading={isLoading} error={error}>
