@@ -1,6 +1,6 @@
 import {QuestionType, AnswersType} from "@/types/QuizTypes";
 import {useState} from "react";
-import Answer from "@/components/Quiz/Question/Answer/Answer";
+
 
 
 const Question = ({question}:{question:QuestionType}) => {
