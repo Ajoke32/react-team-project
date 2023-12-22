@@ -2,14 +2,13 @@ import {QuestionType, AnswersType} from "@/types/QuizTypes";
 import {useState} from "react";
 
 
+const initialAnswer:AnswersType = {
+    content: "",
+    id: 0,
+    isTrue: false
+}
 
 const Question = ({question}:{question:QuestionType}) => {
-
-    const initialAnswer:AnswersType = {
-        content: "",
-        id: 0,
-        isTrue: false
-    }
 
     const [answer, setAnswer] = useState<AnswersType>(initialAnswer)
 
@@ -42,7 +41,7 @@ const Question = ({question}:{question:QuestionType}) => {
             <div>
                 <p className={"p-2"}>{question.question}</p>
                 <ul>
-                    {question.answers ? question.answers.map(answer=>(<li onClick={e=>{setAnswer(answer); focusedAnswer(e.target)}}  className={"list-disc ml-4 hover:border cursor-pointer"} key={answer.id}>{answer.content} <div></div></li>)):<div>No answers</div>}
+                    {question.answers ? question.answers.map(answer=>(<li onClick={(e)=>{setAnswer(answer); focusedAnswer(e.target)}}  className={"list-disc ml-4 hover:border cursor-pointer"} key={answer.id}>{answer.content} <div></div></li>)):<div>No answers</div>}
                 </ul>
                 <button onClick={checkAnswer} className={"border rounded-xl p-1 mt-2 bg-sky-200 hover:border-2 hover:border-blue-400"} >Check answer</button>
             </div>

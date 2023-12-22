@@ -3,43 +3,45 @@ import AutoSizer from "react-virtualized-auto-sizer"
 import {FixedSizeList as ResponsesList} from "react-window"
 import {QuizResponsesType} from "@/types/quizTypes";
 import UserResponseInfo from "@/components/Quiz/Responds/UserResponseInfo/UserResponseInfo";
+import {fetchResponses} from "@/clientApi/responses/fetchResponses";
 
 const initialQuizResponses:QuizResponsesType = {
-    responses: [
-        {id:1, senderName:"User1", content:"helpful quiz"},
-        {id:2, senderName:"User2", content:"pointless quiz"},
-        {id:3, senderName:"User3", content:"helpful quiz"},
-        {id:4, senderName:"User4", content:"pointless quiz"},
-        {id:1, senderName:"User1", content:"helpful quiz"},
-        {id:2, senderName:"User2", content:"pointless quiz"},
-        {id:3, senderName:"User3", content:"helpful quiz"},
-        {id:4, senderName:"User4", content:"pointless quiz"},
-        {id:1, senderName:"User1", content:"helpful quiz"},
-        {id:2, senderName:"User2", content:"pointless quiz"},
-        {id:3, senderName:"User3", content:"helpful quiz"},
-        {id:4, senderName:"User4", content:"pointless quiz"},
-    ]
+    responses: []
 }
 
 const Responses = () => {
-    const [quizResponds, setQuizResponds] = useState<QuizResponsesType>(initialQuizResponses)
+    const [quizResponses, setQuizResponses] = useState<QuizResponsesType>(initialQuizResponses)
+    const [error, setError] = useState<string>("")
+
+    useEffect(()=>{
+        fetchResponses().then(res=>{
+            setQuizResponses({responses:res})
+            console.log("useEffect has worked")
+        }).catch((err:Error)=>{
+            console.log("Data responses loading fail, try later", err);
+            setError("Responses loading fail, try later");
+        });
+    }, [])
+
+    if (error)
+        return <div>{error}</div>
 
     return <AutoSizer>
         {({height, width})=>(
             <div className={"m-1"}>
                 <div className={"text-lg font-bold"}>Users responds:</div>
-                { quizResponds.responses
+                { quizResponses.responses
                     ?(
                         <ResponsesList
                             height={height}
                             width={width}
-                            itemCount={quizResponds.responses.length}
+                            itemCount={quizResponses.responses.length}
                             itemSize={75}
                         >
                             {({index})=>
                                 <UserResponseInfo
                                     key={index}
-                                    response={quizResponds.responses[index]}
+                                    response={quizResponses.responses[index]}
                                 />
                             }
                         </ResponsesList>
