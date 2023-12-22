@@ -36,7 +36,6 @@ export type QuizResponsesType = {
 }
 
 export type ResponseType = {
-    id: number,
     senderName: string,
     content: string
 }

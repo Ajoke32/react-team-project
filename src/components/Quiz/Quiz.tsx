@@ -4,6 +4,7 @@ import Question from "@/components/Quiz/Question/Question"
 import React, {lazy, useEffect, useState, Suspense} from "react";
 import {fetchQuestions} from "@/clientApi/questions/fetchQuestions";
 import CreateQuestionForm from "@/components/Quiz/CreateQuestion/CreateQuestion";
+import useToggleUpdate from "@/customHooks/useToggleUpdate";
 //import Responses from "@/components/Quiz/Responds/Responses";
 
 const Responses = lazy(()=>import("@/components/Quiz/Responds/Responses"))
@@ -25,7 +26,7 @@ const initialQuestion:QuestionType = {
 const Quiz = ({topic}:{topic:string}) => {
 
     const [quiz, setQuiz] = useState<QuizType>(initialQuiz)
-    const [needQuizUpdate, setNeedUpdate] = useState<boolean>(false)
+    const [needQuizUpdate, setNeedUpdate] = useToggleUpdate(false)
     const [question, setQuestion] = useState<QuestionType>(initialQuestion)
     const [error, setError] = useState<string>("")
 
