@@ -1,5 +1,6 @@
 export type QuizType =  {
     questions: QuestionType[]
+    lives: string[]
 }
 
 export type QuestionType = {
@@ -30,4 +31,12 @@ export type questionTopicType = {
     value:"firstaid" | "emergency"
 }
 
+export type QuizResponsesType = {
+    responses:ResponseType[]
+}
 
+export type ResponseType = {
+    id: number,
+    senderName: string,
+    content: string
+}
