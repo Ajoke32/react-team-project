@@ -1,5 +1,6 @@
 import React from 'react';
 import {HeaderTitle} from "@/types/headerTypes";
+import {Link} from "react-router-dom";
 
 
 interface HeaderProps{
@@ -15,9 +16,9 @@ const Header = ({titles}:HeaderProps) => {
             </a>
 
             {titles.map(t=>{
-                return <a href={t.href}>
+                return <Link to={t.href}>
                     {t.title}
-                </a>
+                </Link>
             })}
 
         </header>

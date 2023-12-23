@@ -1,6 +1,48 @@
 import {QuestionType, AnswersType} from "@/types/QuizTypes";
 import {useState} from "react";
+import styled from '@emotion/styled'
 
+
+
+const QuestionTitle = styled.h2`
+  font-size: 18px;
+  font-weight:bold;
+  
+`
+
+const QuestionContent = styled.p`
+  font-family: Georgia;
+  color: #151515;
+  opacity: 0.9;
+  padding: 5px;
+  
+  &:hover{
+    opacity: 1;
+    font-size: 18px;
+  }
+`
+
+const CheckButton = styled.button`
+    background: ${(props)=>(props.isPrimary ? 'lightblue' : 'cadetblue')};
+    color: ${(props)=>(props.isPrimary ? 'black' : 'antiquewhite')};
+    border: ${(props)=>(props.isPrimary ? 'solid 1px black'  : 0)};;
+    border-radius: ${(props)=>(props.isPrimary ? '0px' : '20px')};
+    padding: 4px;
+`
+
+
+const AnswerLi = styled.li`
+    list-style: disc;
+    margin-left: 3%;
+    color: ${(props)=>(props.isNormalVision ? props.theme.color.forUsualHuman : props.theme.color.forDaltonik)};
+    background: ${(props)=>(props.isNormalVision ? props.theme.background.forUsualHuman : props.theme.background.forDaltonik)};
+  
+    &:hover{
+      border: #c7c7c7 1px solid;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+`
 
 const initialAnswer:AnswersType = {
     content: "",
@@ -36,16 +78,17 @@ const Question = ({question}:{question:QuestionType}) => {
     }
 
     return (
-        <div className={"m-2 p-2 border"}>
-            <h2 className={"font-bold"}>Question #{question.id}</h2>
-            <div>
-                <p className={"p-2"}>{question.question}</p>
-                <ul>
-                    {question.answers ? question.answers.map(answer=>(<li onClick={(e)=>{setAnswer(answer); focusedAnswer(e.target)}}  className={"list-disc ml-4 hover:border cursor-pointer"} key={answer.id}>{answer.content} <div></div></li>)):<div>No answers</div>}
-                </ul>
-                <button onClick={checkAnswer} className={"border rounded-xl p-1 mt-2 bg-sky-200 hover:border-2 hover:border-blue-400"} >Check answer</button>
+
+            <div className={"m-2 p-2 border"}>
+                <QuestionTitle className={"font-bold"}>Question #{question.id}</QuestionTitle>
+                <div>
+                    <QuestionContent>{question.question}</QuestionContent>
+                    <ul>
+                        {question.answers ? question.answers.map(answer=>(<AnswerLi isNormalVision={true} onClick={(e)=>{setAnswer(answer); focusedAnswer(e.target)}}  key={answer.id}>{answer.content} </AnswerLi>)):<div>No answers</div>}
+                    </ul>
+                    <CheckButton isPrimary={false} onClick={checkAnswer} >Check answer</CheckButton>
+                </div>
             </div>
-        </div>
     )
 }
 
