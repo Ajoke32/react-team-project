@@ -20,6 +20,11 @@ export type AnswersType = {
     isTrue: boolean
 }
 
+export type AnswerFieldsType = {
+    answer:string,
+    isTrue:boolean
+}
+
 export type CreateAnswerType = {
     content:"",
     isTrue:false
@@ -38,4 +43,10 @@ export type QuizResponsesType = {
 export type ResponseType = {
     senderName: string,
     content: string
+}
+
+export type QuestionFieldsType = {
+    question: string
+    countRightAnswers: number
+    answers: AnswersType[]
 }
