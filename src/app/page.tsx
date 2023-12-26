@@ -1,13 +1,19 @@
+'use client';
 import React from "react";
-import Header from "@/components/Header/Header";
-import TopicsList from "@/components/Lists/TopicsList";
-import RootLayout from "@/app/layout";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import Layout from "@/components/Layout/Layout";
+import Homepage from "@/components/Homepage/Homepage";
+import Posts from "@/components/Posts/Posts";
 
 export default function Home() {
     return (
-        <RootLayout>
-            <Header titles={[{title:"About as",href:"/about"},{title:"Support",href:'/support'}]}/>
-            <TopicsList/>
-        </RootLayout>
+        <BrowserRouter>
+            <Routes>
+                <Route path={"/"} element={<Layout/>}>
+                    <Route index element={<Homepage />}/>
+                    <Route path={"/PostPage"} element={<Posts />}/>
+                </Route>
+            </Routes>
+        </BrowserRouter>
     )
 }

@@ -4,6 +4,7 @@ import {HeaderTitle} from "@/types/headerTypes";
 import Profile from "@/components/Profile/Profile";
 import {ThemeContext} from "@/components/ThemeContext/ThemeContext";
 import '@/app/Header.css';
+import {Link} from "react-router-dom";
 
 
 interface HeaderProps{
@@ -30,9 +31,9 @@ const Header = ({titles}:HeaderProps) => {
                 </a>
 
                 {titles.map(t=>{
-                    return <a href={t.href}>
+                    return <Link to={t.href}>
                         {t.title}
-                    </a>
+                    </Link>
                 })}
             </div>
 
