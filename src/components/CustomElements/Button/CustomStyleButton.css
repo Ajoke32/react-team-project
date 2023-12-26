@@ -1,0 +1,7 @@
+.customButton {
+    padding: 5px 15px;
+    font-size: 14px;
+    margin: 0 5px;
+    background: transparent;
+    border: 2px outset rgba(250, 11, 63, 0.88);
+}
